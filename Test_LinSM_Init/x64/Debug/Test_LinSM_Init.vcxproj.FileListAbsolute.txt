@@ -1,0 +1,2 @@
+C:\Users\kc101322\OneDrive - Qorvo\Desktop\fromMati\samochodowka\projekt\LINif\LinIf\Test_LinSM_Init\x64\Debug\Test_LinSM_Init.vcxproj.CopyComplete
+C:\Users\Mati\Desktop\LinIf\Test_LinSM_Init\x64\Debug\Test_LinSM_Init.vcxproj.CopyComplete
