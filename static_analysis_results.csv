@@ -1,0 +1,6 @@
+File, Line, Severity, Id, Summary
+Det.c,38,style,constParameter,Parameter 'versioninfo' can be declared with const
+LinSM.c,156,style,multiCondition,Expression is always true because 'else if' condition is opposite to previous condition at line 148.
+LinSM.c,168,style,constParameter,Parameter 'mode' can be declared with const
+LinSM.c,219,style,unreadVariable,Variable 'mode_int' is assigned a value that is never used.
+LinSM.c,234,style,unreadVariable,Variable 'mode_int' is assigned a value that is never used.
