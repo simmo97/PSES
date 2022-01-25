@@ -4,9 +4,6 @@
 STATIC NetworkHandleType Channel_mock;
 STATIC ComM_ModeType ComMode_mock;
 
-//static NetworkHandleType Channel_mock;
-//static ComM_ModeType ComMode_mock;
-
 void ComM_BusSM_ModeIndication(NetworkHandleType Channel,ComM_ModeType ComMode)
 {
     Channel_mock = Channel;
