@@ -8,9 +8,7 @@
 #include "BswM_LinSM.c"
 #include "ComM.c"
 /////////////////////////////////////////////////////////////////
-// Tutaj includuj wszystkie poptrzebne pliki .c
-// W pliku pch.c przyklad jak deklarowac zmienne globalne
-// wszystkie zmienne globalne deklaruj w pliku .c z definem STATIC
+// Included Files
 /////////////////////////////////////////////////////////////////
 #include <iostream>
 #include "gtest/gtest.h"
@@ -257,7 +255,7 @@ TEST(LinSM_WakeUpConfirmation_Test, Set_LinSMNetworkStatus_LINSM_RUN_COMMUNICATI
 }
 
 /////////////////////////////////////////////////////////////////
-//main
+//Main
 /////////////////////////////////////////////////////////////////
 
 GTEST_API_ int main (int argc, char **argv){
