@@ -20,7 +20,7 @@ using namespace std;
 //LinSM_Init_Tests
 /////////////////////////////////////////////////////////////////
 
-TEST(LinSM_Init_Test, InitializeVariables) {
+TEST(LinSM_Init_Test, InitializeVariables){
 	LinSM_ConfigType config_type = DEFAULT_CONFIG;
 	LinSM_Init(&config_type);
 	EXPECT_EQ(LinSMNetworkStatus[LINIF_CONTROLLER_CNT - 1], LINSM_NO_COM);
@@ -39,7 +39,7 @@ TEST(LinSM_Init_Test, InitializeVariables) {
 //LinSM_ScheduleRequest_Tests
 /////////////////////////////////////////////////////////////////
 
-TEST(LinSM_ScheduleRequest_Test, NetworkStatus_NOCOM_SMStatus_INIT) {
+TEST(LinSM_ScheduleRequest_Test, NetworkStatus_NOCOM_SMStatus_INIT){
 	NetworkHandleType network = LINIF_CONTROLLER_CNT - 1;
 	LinIf_SchHandleType schedule = LINIF_SCH_CNT - 1;
 	setLinSMStatus(LINSM_INIT);	
@@ -48,7 +48,7 @@ TEST(LinSM_ScheduleRequest_Test, NetworkStatus_NOCOM_SMStatus_INIT) {
 	EXPECT_EQ(E_NOT_OK, LinSM_ScheduleRequest(network, schedule));
 }
 
-TEST(LinSM_ScheduleRequest_Test, NetworkStatus_FULCOM_SMStatus_INIT) {
+TEST(LinSM_ScheduleRequest_Test, NetworkStatus_FULCOM_SMStatus_INIT){
 	NetworkHandleType network = LINIF_CONTROLLER_CNT - 1;
 	LinIf_SchHandleType schedule = LINIF_SCH_CNT - 1;
 	setLinSMStatus(LINSM_INIT);
@@ -57,7 +57,7 @@ TEST(LinSM_ScheduleRequest_Test, NetworkStatus_FULCOM_SMStatus_INIT) {
 	EXPECT_EQ(E_OK, LinSM_ScheduleRequest(network, schedule));
 }
 
-TEST(LinSM_ScheduleRequest_Test, NetworkStatus_FULCOM_SMStatus_UNINIT) {
+TEST(LinSM_ScheduleRequest_Test, NetworkStatus_FULCOM_SMStatus_UNINIT){
 	NetworkHandleType network = LINIF_CONTROLLER_CNT - 1;
 	LinIf_SchHandleType schedule = LINIF_SCH_CNT - 1;
 	setLinSMNetworkStatus(LINSM_FULL_COM);
@@ -66,7 +66,7 @@ TEST(LinSM_ScheduleRequest_Test, NetworkStatus_FULCOM_SMStatus_UNINIT) {
 	EXPECT_EQ(E_NOT_OK, LinSM_ScheduleRequest(network, schedule));
 }
 
-TEST(LinSM_ScheduleRequest_Test, NetworkStatus_NOCOM_SMStatus_UNINIT) {
+TEST(LinSM_ScheduleRequest_Test, NetworkStatus_NOCOM_SMStatus_UNINIT){
 	NetworkHandleType network = LINIF_CONTROLLER_CNT - 1;
 	LinIf_SchHandleType schedule = LINIF_SCH_CNT - 1;
 	setLinSMNetworkStatus(LINSM_NO_COM);
@@ -75,7 +75,7 @@ TEST(LinSM_ScheduleRequest_Test, NetworkStatus_NOCOM_SMStatus_UNINIT) {
 	EXPECT_EQ(E_NOT_OK, LinSM_ScheduleRequest(network, schedule));
 }
 
-TEST(LinSM_ScheduleRequest_Test, Test_Network_NOTOK) {
+TEST(LinSM_ScheduleRequest_Test, Test_Network_NOTOK){
 	NetworkHandleType network = LINIF_CONTROLLER_CNT;
 	LinIf_SchHandleType schedule = LINIF_SCH_CNT - 1;
 	setLinSMStatus(LINSM_INIT);
@@ -83,7 +83,7 @@ TEST(LinSM_ScheduleRequest_Test, Test_Network_NOTOK) {
 	EXPECT_EQ(E_NOT_OK, LinSM_ScheduleRequest(network, schedule));
 }
 
-TEST(LinSM_ScheduleRequest_Test, Test_Schedule_NOTOK) {
+TEST(LinSM_ScheduleRequest_Test, Test_Schedule_NOTOK){
 	NetworkHandleType network = LINIF_CONTROLLER_CNT - 1;
 	LinIf_SchHandleType schedule = LINIF_SCH_CNT ;
 	setLinSMStatus(LINSM_INIT);
@@ -95,7 +95,7 @@ TEST(LinSM_ScheduleRequest_Test, Test_Schedule_NOTOK) {
 //LinSM_GetCurrentComMode_Tests
 /////////////////////////////////////////////////////////////////
 
-TEST(LinSM_GetCurrentComMode_Test, Test_SMStatus_OK) {
+TEST(LinSM_GetCurrentComMode_Test, Test_SMStatus_OK){
 	NetworkHandleType network = LINIF_CONTROLLER_CNT - 1;
 	ComM_ModeType mode_v;
 	ComM_ModeType* mode = &mode_v;
@@ -104,7 +104,7 @@ TEST(LinSM_GetCurrentComMode_Test, Test_SMStatus_OK) {
 	EXPECT_EQ(E_OK, LinSM_GetCurrentComMode(network, mode));
 }
 
-TEST(LinSM_GetCurrentComMode_Test, Test_SMStatus_NOTOK) {
+TEST(LinSM_GetCurrentComMode_Test, Test_SMStatus_NOTOK){
 	NetworkHandleType network = LINIF_CONTROLLER_CNT - 1;
 	ComM_ModeType mode_v;
 	ComM_ModeType* mode = &mode_v;
@@ -113,7 +113,7 @@ TEST(LinSM_GetCurrentComMode_Test, Test_SMStatus_NOTOK) {
 	EXPECT_EQ(E_NOT_OK, LinSM_GetCurrentComMode(network, mode));
 }
 
-TEST(LinSM_GetCurrentComMode_Test, Test_Network_OK) {
+TEST(LinSM_GetCurrentComMode_Test, Test_Network_OK){
 	NetworkHandleType network = LINIF_CONTROLLER_CNT - 1;
 	ComM_ModeType mode_v;
 	ComM_ModeType* mode = &mode_v;
@@ -122,7 +122,7 @@ TEST(LinSM_GetCurrentComMode_Test, Test_Network_OK) {
 	EXPECT_EQ(E_OK, LinSM_GetCurrentComMode(network, mode));
 }
 
-TEST(LinSM_GetCurrentComMode_Test, Test_Network_NOTOK) {
+TEST(LinSM_GetCurrentComMode_Test, Test_Network_NOTOK){
 	NetworkHandleType network = LINIF_CONTROLLER_CNT;
 	ComM_ModeType mode_v;
 	ComM_ModeType* mode = &mode_v;
@@ -131,7 +131,7 @@ TEST(LinSM_GetCurrentComMode_Test, Test_Network_NOTOK) {
 	EXPECT_EQ(E_NOT_OK, LinSM_GetCurrentComMode(network, mode));
 }
 
-TEST(LinSM_GetCurrentComMode_Test, Test_Mode_OK) {
+TEST(LinSM_GetCurrentComMode_Test, Test_Mode_OK){
 	NetworkHandleType network = LINIF_CONTROLLER_CNT - 1;
 	ComM_ModeType mode_v = COMM_NO_COMMUNICATION;
 	ComM_ModeType* mode = &mode_v;
@@ -140,7 +140,7 @@ TEST(LinSM_GetCurrentComMode_Test, Test_Mode_OK) {
 	EXPECT_EQ(E_OK, LinSM_GetCurrentComMode(network, mode));
 }
 
-TEST(LinSM_GetCurrentComMode_Test, Test_Mode_NOTOK) {
+TEST(LinSM_GetCurrentComMode_Test, Test_Mode_NOTOK){
 	NetworkHandleType network = LINIF_CONTROLLER_CNT - 1;
 	ComM_ModeType* mode = NULL;
 	setLinSMStatus(LINSM_INIT);
@@ -152,7 +152,7 @@ TEST(LinSM_GetCurrentComMode_Test, Test_Mode_NOTOK) {
 //LinSM_RequestComMode_Tests
 /////////////////////////////////////////////////////////////////
 
-TEST(LinSM_RequestComMode_Test, Test_Status_UNINIT) {
+TEST(LinSM_RequestComMode_Test, Test_Status_UNINIT){
 	NetworkHandleType network = LINIF_CONTROLLER_CNT - 1;
 	ComM_ModeType mode = COMM_FULL_COMMUNICATION;
 	setLinSMStatus(LINSM_UNINIT);
@@ -160,7 +160,7 @@ TEST(LinSM_RequestComMode_Test, Test_Status_UNINIT) {
 	EXPECT_EQ(E_NOT_OK, LinSM_RequestComMode(network, mode));
 }
 
-TEST(LinSM_RequestComMode_Test, Test_Status_INIT) {
+TEST(LinSM_RequestComMode_Test, Test_Status_INIT){
 	NetworkHandleType network = LINIF_CONTROLLER_CNT - 1;
 	ComM_ModeType mode = COMM_FULL_COMMUNICATION;
 	setLinSMStatus(LINSM_INIT);
@@ -168,7 +168,7 @@ TEST(LinSM_RequestComMode_Test, Test_Status_INIT) {
 	EXPECT_EQ(E_OK, LinSM_RequestComMode(network, mode));
 }
 
-TEST(LinSM_RequestComMode_Test, Test_Network_OK) {
+TEST(LinSM_RequestComMode_Test, Test_Network_OK){
 	NetworkHandleType network = LINIF_CONTROLLER_CNT - 1;
 	ComM_ModeType mode = COMM_FULL_COMMUNICATION;
 	setLinSMStatus(LINSM_INIT);
@@ -176,7 +176,7 @@ TEST(LinSM_RequestComMode_Test, Test_Network_OK) {
 	EXPECT_EQ(E_OK, LinSM_RequestComMode(network, mode));
 }
 
-TEST(LinSM_RequestComMode_Test, Test_Network_NOTOK) {
+TEST(LinSM_RequestComMode_Test, Test_Network_NOTOK){
 	NetworkHandleType network = LINIF_CONTROLLER_CNT;
 	ComM_ModeType mode = COMM_FULL_COMMUNICATION;
 	setLinSMStatus(LINSM_INIT);
@@ -184,7 +184,7 @@ TEST(LinSM_RequestComMode_Test, Test_Network_NOTOK) {
 	EXPECT_EQ(E_NOT_OK, LinSM_RequestComMode(network, mode));
 }
 
-TEST(LinSM_RequestComMode_Test, Test_Mode_NOTOK) {
+TEST(LinSM_RequestComMode_Test, Test_Mode_NOTOK){
 	NetworkHandleType network = LINIF_CONTROLLER_CNT - 1;
 	ComM_ModeType mode = COMM_SILENT_COMMUNICATION;
 	setLinSMStatus(LINSM_INIT);
@@ -192,7 +192,7 @@ TEST(LinSM_RequestComMode_Test, Test_Mode_NOTOK) {
 	EXPECT_EQ(E_NOT_OK, LinSM_RequestComMode(network, mode));
 }
 
-TEST(LinSM_RequestComMode_Test, Test_Mode_OK) {
+TEST(LinSM_RequestComMode_Test, Test_Mode_OK){
 	NetworkHandleType network = LINIF_CONTROLLER_CNT - 1;
 	ComM_ModeType mode = COMM_FULL_COMMUNICATION;
 	setLinSMStatus(LINSM_INIT);
@@ -204,8 +204,7 @@ TEST(LinSM_RequestComMode_Test, Test_Mode_OK) {
 //LinSM_GetVersionInfo_Test
 /////////////////////////////////////////////////////////////////
 
-TEST(LinSM_GetVersionInfo_Test, FillValidPointerWithVersionInforamtion)
-{
+TEST(LinSM_GetVersionInfo_Test, FillValidPointerWithVersionInforamtion){
 	Std_VersionInfoType versioninfo = { 0, 0, 0, 0, 0 };
 
 	LinSM_GetVersionInfo(&versioninfo);
@@ -222,7 +221,7 @@ TEST(LinSM_GetVersionInfo_Test, FillValidPointerWithVersionInforamtion)
 //LinSM_WakeUpConfirmation_Tests
 /////////////////////////////////////////////////////////////////
 
-TEST(LinSM_WakeUpConfirmation_Test, Set_LinSMStatus_LINSM_FULL_COM_AfterWakeup) {
+TEST(LinSM_WakeUpConfirmation_Test, Set_LinSMStatus_LINSM_FULL_COM_AfterWakeup){
 	NetworkHandleType network = LINIF_CONTROLLER_CNT - 1;
 	LinIf_SchHandleType schedule = LINIF_SCH_CNT - 1;
 	setLinSMStatus(LINSM_INIT);
@@ -232,7 +231,7 @@ TEST(LinSM_WakeUpConfirmation_Test, Set_LinSMStatus_LINSM_FULL_COM_AfterWakeup) 
 	EXPECT_EQ(LINSM_FULL_COM, LinSMStatus);
 }
 
-TEST(LinSM_WakeUpConfirmation_Test, ComM_BusSM_ModeIndication_AfterWakeup) {
+TEST(LinSM_WakeUpConfirmation_Test, ComM_BusSM_ModeIndication_AfterWakeup){
 	NetworkHandleType network = LINIF_CONTROLLER_CNT - 1;
 	LinIf_SchHandleType schedule = LINIF_SCH_CNT - 1;
 	setLinSMStatus(LINSM_INIT);
@@ -244,7 +243,7 @@ TEST(LinSM_WakeUpConfirmation_Test, ComM_BusSM_ModeIndication_AfterWakeup) {
 }
 
 
-TEST(LinSM_WakeUpConfirmation_Test, Set_LinSMNetworkStatus_LINSM_RUN_COMMUNICATION_AfterWakeup) {
+TEST(LinSM_WakeUpConfirmation_Test, Set_LinSMNetworkStatus_LINSM_RUN_COMMUNICATION_AfterWakeup){
 	NetworkHandleType network = LINIF_CONTROLLER_CNT - 1;
 	LinIf_SchHandleType schedule = LINIF_SCH_CNT - 1;
 	setLinSMStatus(LINSM_INIT);
