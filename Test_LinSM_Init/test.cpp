@@ -1,5 +1,5 @@
 #define UNIT_TEST 1
-#define TEST_FUNCTIONS
+#define TEST_FUNCTIONS 
 #include "gtest/gtest.h"
 #include "STATIC.h"
 #include "LinSM.c"
