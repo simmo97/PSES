@@ -70,14 +70,12 @@ This function initializes the SM
 ---
 SWS_LinSM_00155
 */
-void LinSM_Init(const LinSM_ConfigType* ConfigPtr)
-{
+void LinSM_Init(const LinSM_ConfigType* ConfigPtr){
 	/* SWS_LinSM_00151 */
 
 	(void)ConfigPtr;
 	uint8 i;
-	for (i = 0; i < LINIF_CONTROLLER_CNT; i++)
-	{
+	for (i = 0; i < LINIF_CONTROLLER_CNT; i++){
 		/* SWS_LinSM_00152*/
 		/* SWS_LinSM_00043*/
 		/* SWS_LinSM_00152*/
@@ -101,33 +99,28 @@ The upper layer requests a schedule table to be changed on the one LIN network
 ---
 SWS_LinSM_00113
 */
-Std_ReturnType LinSM_ScheduleRequest(NetworkHandleType network, LinIf_SchHandleType schedule)
-{
+Std_ReturnType LinSM_ScheduleRequest(NetworkHandleType network, LinIf_SchHandleType schedule){
 	/* SWS_LinSM_00241 */
 	/* SWS_LinSM_00114 */
-	if (!(network < LINIF_CONTROLLER_CNT))
-	{
+	if (!(network < LINIF_CONTROLLER_CNT)){
 		Det_ReportError(MODULE_ID_LINSM, 0, LINSM_SCHEDULE_REQUEST_SERVICE_ID, LINSM_E_NONEXISTENT_NETWORK);
 		return E_NOT_OK;
 	}
 
 	/* SWS_LinSM_00115 */
-	if (!(schedule < LINIF_SCH_CNT))
-	{
+	if (!(schedule < LINIF_SCH_CNT)){
 		Det_ReportError(MODULE_ID_LINSM, 0, LINSM_SCHEDULE_REQUEST_SERVICE_ID, LINSM_E_PARAMETER);
 		return E_NOT_OK;
 	}
 
 	/* SWS_LinSM_00116 */
-	if (LinSMStatus == LINSM_UNINIT)
-	{
+	if (LinSMStatus == LINSM_UNINIT){
 		Det_ReportError(MODULE_ID_LINSM, 0, LINSM_SCHEDULE_REQUEST_SERVICE_ID, LINSM_E_UNINIT);
 		return E_NOT_OK;
 	}
 
 	/* SWS_LinSM_10211 */
-	if (LinSMNetworkStatus[network] != LINSM_FULL_COM) 
-	{
+	if (LinSMNetworkStatus[network] != LINSM_FULL_COM){
 		return E_NOT_OK;
 	}
 
@@ -142,31 +135,26 @@ Std_ReturnType LinSM_ScheduleRequest(NetworkHandleType network, LinIf_SchHandleT
 ---
 SWS_LinSM_00117
 */
-void LinSM_GetVersionInfo(Std_VersionInfoType *versioninfo)
-{
+void LinSM_GetVersionInfo(Std_VersionInfoType *versioninfo){
 	/* SWS_LinSM_00119 */	
-	if (NULL != versioninfo) 
-	{
+	if (NULL != versioninfo){
 		versioninfo->vendorID = LIN_VENDOR_ID;
 		versioninfo->moduleID = LIN_MODULE_ID;
 		versioninfo->sw_major_version = LIN_SW_MAJOR_VERSION;
 		versioninfo->sw_minor_version = LIN_SW_MINOR_VERSION;
 		versioninfo->sw_patch_version = LIN_SW_PATCH_VERSION;
 	}
-	else if (!(versioninfo != NULL))
-	{
+	else if (!(versioninfo != NULL)){
 		/* SWS_LinSM_00119 */
 		Det_ReportError(MODULE_ID_LINSM, 0, LINSM_SCHEDULE_REQUEST_SERVICE_ID, LINSM_E_PARAMETER_POINTER);
 	}
-	else
-	{
+	else{
 		/* Do nothing */
 	}
 }
 
 /* SWS_LinSM_00122 */
-Std_ReturnType LinSM_GetCurrentComMode(NetworkHandleType network, ComM_ModeType* mode)
-{
+Std_ReturnType LinSM_GetCurrentComMode(NetworkHandleType network, ComM_ModeType* mode){
 	/* SWS_LinSM_00125 */
 	VALIDATE_W_RV((LinSMStatus != LINSM_UNINIT), LINSM_GET_CURRENT_COM_MODE_SERVICE_ID, LINSM_E_UNINIT, E_NOT_OK);
 	/* SWS_LinSM_00123 */
@@ -174,8 +162,7 @@ Std_ReturnType LinSM_GetCurrentComMode(NetworkHandleType network, ComM_ModeType*
 	/* SWS_LinSM_00124 */
 	VALIDATE_W_RV((mode != NULL), LINSM_GET_CURRENT_COM_MODE_SERVICE_ID, LINSM_E_PARAMETER_POINTER, E_NOT_OK);
 
-	switch (LinSMStatus)
-	{
+	switch (LinSMStatus){
 		/* SWS_LinSM_00182 */
 	case LINSM_UNINIT:
 		return COMM_NO_COMMUNICATION;
@@ -195,8 +182,7 @@ The mode switch will not be made instant. The LinSM will notify the caller when 
 ---
 SWS_LinSM_00126
 */
-Std_ReturnType LinSM_RequestComMode(NetworkHandleType network, ComM_ModeType mode)
-{
+Std_ReturnType LinSM_RequestComMode(NetworkHandleType network, ComM_ModeType mode){
 	Std_ReturnType  res = E_NOT_OK;
 	ComM_ModeType   mode_int;
 	/* SWS_LinSM_00128 */
@@ -206,12 +192,10 @@ Std_ReturnType LinSM_RequestComMode(NetworkHandleType network, ComM_ModeType mod
 	/* SWS_LinSM_00191 */
 	VALIDATE_W_RV((mode >= COMM_FULL_COMMUNICATION), LINSM_REQUEST_COM_MODE_SERVICE_ID, LINSM_E_PARAMETER, E_NOT_OK);
 
-	switch (mode)
-	{
+	switch (mode){
 	case COMM_NO_COMMUNICATION:
 		/* SWS_LinSM_00178 */
-		if (E_OK == LinIf_GotoSleep(network)) 
-		{
+		if (E_OK == LinIf_GotoSleep(network)){
 			LinSMNetworkStatus[network] = LINSM_GOTO_SLEEP;
 			GoToSleepTimer[network] = LINSM_GOTO_SLEEP_TIMEOUT;
 			res = E_OK;
@@ -227,14 +211,12 @@ Std_ReturnType LinSM_RequestComMode(NetworkHandleType network, ComM_ModeType mod
 	case COMM_FULL_COMMUNICATION:
 		/* SWS_LinSM_00047 */
 		WakeUpTimer[network] = LINSM_WAKEUP_TIMEOUT; //should be done here since some implementations will confirm immediatly
-		if (E_OK == LinIf_WakeUp(network)) 
-		{
+		if (E_OK == LinIf_WakeUp(network)){
 			res = E_OK;
 			/* SWS_LinSM_00223 */
 			mode_int = mode;
 		}
-		else
-		{
+		else{
 			WakeUpTimer[network] = 0;
 		}
 		break;
@@ -251,8 +233,7 @@ Periodic function that runs the timers of different request timeouts
 ---
 SWS_LinSM_00156
 */
-void LinSM_MainFunction(void)
-{
+void LinSM_MainFunction(void){
 	/* SWS_LinSM_00157 */
 	// TIMERS HANDLING
 	/* SWS_LinSM_00162 */
@@ -263,8 +244,7 @@ The LinIf module will call this callback when the nwe requested schedule table i
 ---
 SWS_LinSM_00129
 */
-void LinSM_ScheduleRequestConfirmation(NetworkHandleType network, LinIf_SchHandleType schedule)
-{
+void LinSM_ScheduleRequestConfirmation(NetworkHandleType network, LinIf_SchHandleType schedule){
 	/* SWS_LinSM_00242 */
 
 	/* SWS_LinSM_00131 */
@@ -272,7 +252,7 @@ void LinSM_ScheduleRequestConfirmation(NetworkHandleType network, LinIf_SchHandl
 	/* SWS_LinSM_00130 */
 	VALIDATE((network < LINIF_CONTROLLER_CNT), LINSM_SCHEDULE_REQUEST_CONF_SERVICE_ID, LINSM_E_NONEXISTENT_NETWORK);
 
-	if (ScheduleRequestTimer[network] != 0) {
+	if (ScheduleRequestTimer[network] != 0){
 		BswM_LinSM_CurrentSchedule(network, schedule);
 		ScheduleRequestTimer[network] = 0;
 	}
@@ -284,8 +264,7 @@ Only applicable for LIN slave nodes
 ---
 SWS_LinSM_91000
 */
-void LinSM_GotoSleepIndication(NetworkHandleType channel)
-{
+void LinSM_GotoSleepIndication(NetworkHandleType channel){
 	//This function is not implemented as we are working only in mastrer mode
 }
 
@@ -294,16 +273,14 @@ The LinIf will call this callback when go to sleep command is sent succesfully o
 ---
 SWS_LinSM_00135
 */
-void LinSM_GotoSleepConfirmation(NetworkHandleType newtork, boolean success)
-{
+void LinSM_GotoSleepConfirmation(NetworkHandleType newtork, boolean success){
 	/* SWS_LinSM_00137 */
 	VALIDATE((LinSMStatus != LINSM_UNINIT), LINSM_GOTO_SLEEP_CONF_SERVICE_ID, LINSM_E_UNINIT);
 	/* SWS_LinSM_00136 */
 	VALIDATE((newtork < LINIF_CONTROLLER_CNT), LINSM_GOTO_SLEEP_CONF_SERVICE_ID, LINSM_E_NONEXISTENT_NETWORK);
 
-	if (TRUE == success)
-	{
-		if (GoToSleepTimer[newtork] != 0) {
+	if (TRUE == success){
+		if (GoToSleepTimer[newtork] != 0){
 			GoToSleepTimer[newtork] = 0;
 			/* SWS_LinSM_00035 */
 			LinSMNetworkStatus[newtork] = LINSM_NO_COM;
@@ -319,19 +296,17 @@ The LinIf will call this callback when the wake up signal command is sent not su
 ---
 SWS_LinSM_00132
 */
-void LinSM_WakeUpConfirmation(NetworkHandleType network, boolean success)
-{
+void LinSM_WakeUpConfirmation(NetworkHandleType network, boolean success){
 	/* SWS_LinSM_00134 */
 	VALIDATE((LinSMStatus != LINSM_UNINIT), LINSM_WAKEUP_CONF_SERVICE_ID, LINSM_E_UNINIT);
 	/* SWS_LinSM_00133 */
 	VALIDATE((network < LINIF_CONTROLLER_CNT), LINSM_WAKEUP_CONF_SERVICE_ID, LINSM_E_NONEXISTENT_NETWORK);
 
-	if (TRUE == success)
-	{
+	if (TRUE == success){
 		/* SWS_LinSM_00049 */
 		LinSMStatus = LINSM_FULL_COM;
 
-		//if (WakeUpTimer[network] != 0) {
+		//if (WakeUpTimer[network] != 0){
 			WakeUpTimer[network] = 0;
 			/* SWS_LinSM_00033 */
 			ComM_BusSM_ModeIndication(network, COMM_FULL_COMMUNICATION);
@@ -343,20 +318,17 @@ void LinSM_WakeUpConfirmation(NetworkHandleType network, boolean success)
 }
 
 /* SWS_LinSM_00175 */
-void LinSM_TimerTick(void)
-{
+void LinSM_TimerTick(void){
 
 }
 
 #ifdef UNIT_TEST
 
-void setLinSMStatus(LinSM_StatusType status)
-{
+void setLinSMStatus(LinSM_StatusType status){
     LinSMStatus = status;
 }
 
-void setLinSMNetworkStatus(LinSM_StatusType status)
-{
+void setLinSMNetworkStatus(LinSM_StatusType status){
     LinSMNetworkStatus[0] = status;
 }
 
