@@ -17,32 +17,27 @@
 
 static int callCounter = 0;
 
-Std_ReturnType LinIf_ScheduleRequest(NetworkHandleType network, LinIf_SchHandleType schedule) 
-{
+Std_ReturnType LinIf_ScheduleRequest(NetworkHandleType network, LinIf_SchHandleType schedule){
     (void)network;
     (void)schedule;
     callCounter++; 
     return E_OK;
 }
 
-Std_ReturnType LinIf_WakeUp(NetworkHandleType Channel)
-{
+Std_ReturnType LinIf_WakeUp(NetworkHandleType Channel){
     (void)Channel;
     return E_OK;
 }
 
-Std_ReturnType LinIf_GotoSleep(NetworkHandleType Channel)
-{
+Std_ReturnType LinIf_GotoSleep(NetworkHandleType Channel){
     (void)Channel;
     return E_OK;
 }
 
-void resetLinIf_ScheduleRequest(void)
-{
+void resetLinIf_ScheduleRequest(void){
     callCounter = 0;
 }
 
-int getLinIfScheduleRequestCallCounter(void)
-{
+int getLinIfScheduleRequestCallCounter(void){
     return callCounter;
 }
